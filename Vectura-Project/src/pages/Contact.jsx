@@ -7,7 +7,6 @@ const Contact = () => {
     e.preventDefault();
     setSubmitted(true);
 
-    // Auto reset (optional)
     setTimeout(() => {
       setSubmitted(false);
     }, 6000);
@@ -16,7 +15,8 @@ const Contact = () => {
   return (
     <>
       <style>{`
-        *{
+        /* ===== RESET ===== */
+        *,*::before,*::after{
           margin:0;
           padding:0;
           box-sizing:border-box;
@@ -26,27 +26,28 @@ const Contact = () => {
         body{
           background:#f6f5f2;
           color:#1f2937;
+          overflow-x:hidden;
         }
 
-        /* ↓ Reduced padding */
+        /* SECTION PADDING */
         section{
-          padding:65px 0;
+          padding:clamp(45px,6vw,65px) 0;
         }
 
         .container{
           max-width:1100px;
           margin:auto;
-          padding:0 22px;
+          padding:0 18px;
         }
 
         h1{
-          font-size:2.8rem;
+          font-size:clamp(2.2rem,5vw,2.8rem);
           margin-bottom:16px;
           color:#111827;
         }
 
         h2{
-          font-size:2.2rem;
+          font-size:clamp(1.8rem,4vw,2.2rem);
           margin-bottom:14px;
           color:#111827;
         }
@@ -62,6 +63,7 @@ const Contact = () => {
           line-height:1.8;
           color:#4b5563;
           margin-bottom:12px;
+          text-align:left;
         }
 
         .gold{color:#c9a227;}
@@ -79,7 +81,7 @@ const Contact = () => {
         .split-grid{
           display:grid;
           grid-template-columns:1fr 1fr;
-          gap:55px;
+          gap:clamp(32px,5vw,55px);
           align-items:flex-start;
         }
 
@@ -87,7 +89,7 @@ const Contact = () => {
         .contact-box{
           background:#ffffff;
           border-radius:22px;
-          padding:36px;
+          padding:32px;
           box-shadow:0 18px 45px rgba(0,0,0,.08);
           border-top:4px solid #c9a227;
         }
@@ -132,7 +134,7 @@ const Contact = () => {
         /* THANK YOU */
         .thankyou{
           text-align:center;
-          padding:50px 30px;
+          padding:clamp(32px,6vw,50px) 24px;
           border-radius:22px;
           background:linear-gradient(135deg,#ffffff,#fdf8e9);
           box-shadow:0 25px 70px rgba(0,0,0,.1);
@@ -155,16 +157,31 @@ const Contact = () => {
           height:320px;
           border-radius:22px;
           border:none;
-          margin-top:28px;
+          margin-top:24px;
           box-shadow:0 20px 55px rgba(0,0,0,.12);
         }
 
+        /* ===== MOBILE FIX ===== */
         @media(max-width:900px){
+
           .split-grid{
             grid-template-columns:1fr;
           }
-          h1{
-            font-size:2.3rem;
+
+          h1,h2{
+            text-align:center;
+          }
+
+          p{
+            text-align:left;
+          }
+
+          .contact-box{
+            padding:26px;
+          }
+
+          iframe{
+            height:260px;
           }
         }
       `}</style>
@@ -206,12 +223,8 @@ const Contact = () => {
             ) : (
               <div className="thankyou">
                 <h2>Thank You!</h2>
-                <p>
-                  Your enquiry has been successfully submitted.
-                </p>
-                <p>
-                  Our team will contact you shortly.
-                </p>
+                <p>Your enquiry has been successfully submitted.</p>
+                <p>Our team will contact you shortly.</p>
               </div>
             )}
           </div>

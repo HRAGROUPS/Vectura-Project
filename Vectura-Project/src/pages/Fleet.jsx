@@ -33,82 +33,145 @@ const Fleet = () => {
   return (
     <>
       <style>{`
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif;}
-        body{background:#f6f5f2;color:#1f2937;}
-        section{padding:100px 0;}
-        .container{max-width:1200px;margin:auto;padding:0 24px;}
+        /* ===== RESET ===== */
+        *,*::before,*::after{
+          margin:0;
+          padding:0;
+          box-sizing:border-box;
+          font-family:Poppins,Segoe UI,sans-serif;
+        }
 
-        h1{font-size:3rem;margin-bottom:18px;}
-        h2{font-size:2.4rem;margin-bottom:18px;}
+        body{
+          background:#f6f5f2;
+          color:#1f2937;
+          overflow-x:hidden;
+        }
+
+        section{
+          padding:clamp(60px,8vw,100px) 0;
+        }
+
+        .container{
+          max-width:1200px;
+          margin:auto;
+          padding:0 18px;
+        }
+
+        h1{font-size:clamp(2.2rem,5vw,3rem);margin-bottom:18px;}
+        h2{font-size:clamp(1.9rem,4vw,2.4rem);margin-bottom:18px;}
         h3{font-size:1.3rem;margin-bottom:12px;}
 
-        p{font-size:1.05rem;line-height:1.9;color:#4b5563;margin-bottom:16px;}
+        p{
+          font-size:1.05rem;
+          line-height:1.9;
+          color:#4b5563;
+          margin-bottom:16px;
+          text-align:left;
+        }
+
         ul{padding-left:18px;margin-top:14px;}
         li{margin-bottom:10px;color:#374151;}
 
         .gold{color:#c9a227;}
 
-        /* HERO */
-        .hero{background:linear-gradient(135deg,#ffffff,#f1efe9);}
+        /* ===== HERO ===== */
+        .hero{
+          background:linear-gradient(135deg,#ffffff,#f1efe9);
+        }
+
         .hero-grid{
           display:grid;
           grid-template-columns:1.2fr 1fr;
-          gap:80px;
+          gap:clamp(40px,6vw,80px);
           align-items:center;
         }
 
-        /* SLIDER */
-        .slider{position:relative;height:380px;overflow:hidden;border-radius:22px;}
-        .slide{position:absolute;inset:0;opacity:0;transition:.8s;}
+        /* ===== SLIDER ===== */
+        .slider{
+          position:relative;
+          height:clamp(240px,35vw,380px);
+          overflow:hidden;
+          border-radius:22px;
+        }
+
+        .slide{
+          position:absolute;
+          inset:0;
+          opacity:0;
+          transition:.8s;
+        }
+
         .slide.active{opacity:1;}
         .slide img{width:100%;height:100%;object-fit:cover;}
 
         .arrow{
-          position:absolute;top:50%;transform:translateY(-50%);
-          width:42px;height:42px;border-radius:50%;
-          background:#fff;border:none;font-size:22px;
-          cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,.15);
+          position:absolute;
+          top:50%;
+          transform:translateY(-50%);
+          width:42px;
+          height:42px;
+          border-radius:50%;
+          background:#fff;
+          border:none;
+          font-size:22px;
+          cursor:pointer;
+          box-shadow:0 10px 25px rgba(0,0,0,.15);
         }
+
         .arrow.left{left:14px;}
         .arrow.right{right:14px;}
 
         .dots{
-          position:absolute;bottom:14px;left:50%;
+          position:absolute;
+          bottom:14px;
+          left:50%;
           transform:translateX(-50%);
-          display:flex;gap:10px;
+          display:flex;
+          gap:10px;
         }
-        .dot{width:11px;height:11px;border-radius:50%;background:#d1d5db;}
+
+        .dot{
+          width:11px;
+          height:11px;
+          border-radius:50%;
+          background:#d1d5db;
+        }
+
         .dot.active{background:#c9a227;}
 
-        /* OVERVIEW */
+        /* ===== OVERVIEW ===== */
         .light{background:#ffffff;}
 
-        /* IMAGE STRIP – PERFECT ALIGNMENT */
+        /* ===== GALLERY ===== */
         .gallery-grid{
           display:grid;
           grid-template-columns:repeat(3,1fr);
           gap:32px;
           margin-top:50px;
         }
+
         .gallery-grid img{
           width:100%;
           height:260px;
           object-fit:cover;
           border-radius:20px;
+          display:block;
         }
 
-        /* POINTS */
+        /* ===== POINTS ===== */
         .points{
           display:grid;
           grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
           gap:18px;
           margin-top:40px;
         }
+
         .points li{
           list-style:none;
           padding-left:22px;
           position:relative;
         }
+
         .points li::before{
           content:"✔";
           position:absolute;
@@ -117,14 +180,16 @@ const Fleet = () => {
           font-size:.9rem;
         }
 
-        /* CAPABILITIES */
+        /* ===== CAPABILITIES ===== */
         .soft{background:#f7f6f2;}
+
         .capability-grid{
           display:grid;
           grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
           gap:36px;
           margin-top:50px;
         }
+
         .capability-card{
           background:#fff;
           padding:36px;
@@ -133,25 +198,47 @@ const Fleet = () => {
           border-top:4px solid #c9a227;
         }
 
+        /* ===== MOBILE FIX ===== */
         @media(max-width:900px){
-          .hero-grid{grid-template-columns:1fr;}
-          h1{font-size:2.3rem;}
-          .slider{height:260px;}
-          .gallery-grid{grid-template-columns:1fr;}
+
+          .hero-grid{
+            grid-template-columns:1fr;
+          }
+
+          h1,h2{
+            text-align:center;
+          }
+
+          p{
+            text-align:left;
+          }
+
+          .slider{
+            height:260px;
+          }
+
+          .gallery-grid{
+            grid-template-columns:1fr;
+            gap:24px;
+          }
+
+          .capability-card{
+            padding:28px;
+          }
         }
       `}</style>
 
-      {/* HERO */}
+      {/* ===== HERO ===== */}
       <section className="hero">
         <div className="container hero-grid">
           <div>
             <h1>Our <span className="gold">Fleet</span></h1>
             <p>
-             Vectura Earthmoving’s fleet represents the strength, discipline,
-              and reliability behind every project we execute. Built to perform 
-              in demanding environments, our equipment forms the operational foundation
-               that enables safe, consistent, and high-productivity execution across
-                infrastructure, mining, and industrial works.
+              Vectura Earthmoving’s fleet represents the strength, discipline,
+              and reliability behind every project we execute. Built to perform
+              in demanding environments, our equipment forms the operational
+              foundation that enables safe, consistent, and high-productivity
+              execution across infrastructure, mining, and industrial works.
             </p>
             <p>
               Every machine is selected, deployed, and maintained to ensure
@@ -176,16 +263,17 @@ const Fleet = () => {
         </div>
       </section>
 
-      {/* OVERVIEW */}
+      {/* ===== OVERVIEW ===== */}
       <section className="light">
         <div className="container">
           <h2>Fleet Overview</h2>
           <p>
-              Vectura Earthmoving operates a diversified and well-structured fleet 
-              designed to support infrastructure, mining, and industrial projects across
-               varied site conditions. Our equipment portfolio is built to handle
-                high-volume earthworks, precision excavation, material handling, and continuous 
-                operational demands with consistency and control.
+            Vectura Earthmoving operates a diversified and well-structured fleet
+            designed to support infrastructure, mining, and industrial projects
+            across varied site conditions. Our equipment portfolio is built to
+            handle high-volume earthworks, precision excavation, material
+            handling, and continuous operational demands with consistency and
+            control.
           </p>
 
           <div className="gallery-grid">
@@ -203,7 +291,7 @@ const Fleet = () => {
         </div>
       </section>
 
-      {/* CAPABILITIES */}
+      {/* ===== CAPABILITIES ===== */}
       <section className="soft">
         <div className="container">
           <h2>Fleet Capabilities</h2>

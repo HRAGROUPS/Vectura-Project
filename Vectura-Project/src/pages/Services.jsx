@@ -60,96 +60,176 @@ const Services = () => {
   return (
     <>
       <style>{`
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif;}
-        body{background:#f6f5f2;color:#1f2937;}
-        section{padding:100px 0;}
-        .container{max-width:1200px;margin:auto;padding:0 24px;}
+        /* ===== RESET ===== */
+        *,*::before,*::after{
+          margin:0;
+          padding:0;
+          box-sizing:border-box;
+          font-family:Poppins,Segoe UI,sans-serif;
+        }
 
-        h1{font-size:3rem;margin-bottom:18px;}
-        h2{font-size:2.3rem;margin-bottom:18px;}
+        body{
+          background:#f6f5f2;
+          color:#1f2937;
+          overflow-x:hidden;
+        }
+
+        section{
+          padding:clamp(60px,8vw,100px) 0;
+        }
+
+        .container{
+          max-width:1200px;
+          margin:auto;
+          padding:0 18px;
+        }
+
+        h1{font-size:clamp(2.2rem,5vw,3rem);margin-bottom:18px;}
+        h2{font-size:clamp(1.8rem,4vw,2.3rem);margin-bottom:18px;}
         h3{font-size:1.35rem;margin-bottom:10px;}
 
-        p{font-size:1.05rem;line-height:1.9;color:#4b5563;margin-bottom:16px;}
+        p{
+          font-size:1.05rem;
+          line-height:1.9;
+          color:#4b5563;
+          margin-bottom:16px;
+          text-align:left;
+        }
+
         ul{padding-left:18px;margin-top:14px;}
         li{margin-bottom:10px;color:#374151;}
 
-        img{width:100%;border-radius:18px;}
+        img{width:100%;border-radius:18px;display:block;}
+
         .gold{color:#c9a227;}
 
         .btn{
           padding:14px 36px;
           background:linear-gradient(135deg,#f3e3a1,#c9a227);
-          border:none;border-radius:50px;
-          font-weight:600;cursor:pointer;
+          border:none;
+          border-radius:50px;
+          font-weight:600;
+          cursor:pointer;
         }
 
-        /* HERO */
-        .hero{background:linear-gradient(135deg,#ffffff,#f1efe9);}
+        /* ===== HERO ===== */
+        .hero{
+          background:linear-gradient(135deg,#ffffff,#f1efe9);
+        }
+
         .hero-grid{
           display:grid;
           grid-template-columns:1.2fr 1fr;
-          gap:80px;
+          gap:clamp(40px,6vw,80px);
           align-items:center;
         }
 
-        /* SLIDER */
-        .slider{position:relative;height:380px;overflow:hidden;}
-        .slide{position:absolute;inset:0;opacity:0;transition:.8s;}
+        /* ===== SLIDER ===== */
+        .slider{
+          position:relative;
+          height:clamp(240px,35vw,380px);
+          overflow:hidden;
+        }
+
+        .slide{
+          position:absolute;
+          inset:0;
+          opacity:0;
+          transition:.8s;
+        }
+
         .slide.active{opacity:1;}
         .slide img{height:100%;object-fit:cover;}
 
         .arrow{
-          position:absolute;top:50%;transform:translateY(-50%);
-          width:42px;height:42px;border-radius:50%;
-          background:#fff;border:none;font-size:22px;cursor:pointer;
+          position:absolute;
+          top:50%;
+          transform:translateY(-50%);
+          width:42px;
+          height:42px;
+          border-radius:50%;
+          background:#fff;
+          border:none;
+          font-size:22px;
+          cursor:pointer;
           box-shadow:0 10px 25px rgba(0,0,0,.15);
         }
+
         .arrow.left{left:14px;}
         .arrow.right{right:14px;}
 
         .dots{
-          position:absolute;bottom:14px;left:50%;
+          position:absolute;
+          bottom:14px;
+          left:50%;
           transform:translateX(-50%);
-          display:flex;gap:10px;
+          display:flex;
+          gap:10px;
         }
-        .dot{width:11px;height:11px;border-radius:50%;background:#d1d5db;cursor:pointer;}
+
+        .dot{
+          width:11px;
+          height:11px;
+          border-radius:50%;
+          background:#d1d5db;
+          cursor:pointer;
+        }
+
         .dot.active{background:#c9a227;}
 
-        /* CARDS */
+        /* ===== SERVICE CARDS ===== */
         .service-grid{
           display:grid;
           grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-          gap:36px;margin-top:60px;
+          gap:36px;
+          margin-top:60px;
         }
 
         .service-card{
-          background:#fff;padding:32px;border-radius:22px;
+          background:#fff;
+          padding:32px;
+          border-radius:22px;
           box-shadow:0 25px 70px rgba(0,0,0,.08);
           border-top:4px solid #c9a227;
           transition:.3s ease;
+          text-align:left;
         }
 
         .service-card:hover{transform:translateY(-6px);}
-        .service-card img{height:180px;object-fit:cover;margin-bottom:14px;}
 
-        /* DETAILS */
+        .service-card img{
+          height:180px;
+          object-fit:cover;
+          margin-bottom:14px;
+        }
+
+        /* ===== DETAILS ===== */
         .details{
-          background:#fff;margin-top:90px;
-          padding:70px;border-radius:30px;
+          background:#fff;
+          margin-top:clamp(50px,8vw,90px);
+          padding:clamp(36px,6vw,70px);
+          border-radius:30px;
           box-shadow:0 35px 90px rgba(0,0,0,.12);
           position:relative;
         }
 
         .close{
-          position:absolute;top:22px;right:22px;
-          width:42px;height:42px;border-radius:50%;
-          background:#f3e3a1;border:none;font-size:22px;
-          font-weight:700;cursor:pointer;
+          position:absolute;
+          top:22px;
+          right:22px;
+          width:42px;
+          height:42px;
+          border-radius:50%;
+          background:#f3e3a1;
+          border:none;
+          font-size:22px;
+          font-weight:700;
+          cursor:pointer;
         }
 
         .detail-image{
           text-align:center;
-          margin-bottom:40px;
+          margin-bottom:36px;
         }
 
         .detail-image img{
@@ -184,25 +264,43 @@ const Services = () => {
           border-left:4px solid #c9a227;
         }
 
+        /* ===== MOBILE FIX ===== */
         @media(max-width:900px){
-          .hero-grid{grid-template-columns:1fr;}
-          h1{font-size:2.3rem;}
-          .slider{height:260px;}
-          .details{padding:40px;}
+
+          .hero-grid{
+            grid-template-columns:1fr;
+          }
+
+          h1,h2{
+            text-align:center;
+          }
+
+          p{
+            text-align:left;
+          }
+
+          .btn{
+            display:block;
+            margin:24px auto 0;
+          }
+
+          .details{
+            padding:32px 22px;
+          }
         }
       `}</style>
 
-      {/* HERO */}
+      {/* ===== HERO ===== */}
       <section className="hero">
         <div className="container hero-grid">
           <div>
             <h1>Our <span className="gold">Services</span></h1>
             <p>
-              Vectura Earthmoving delivers professionally managed
-               services designed to support infrastructure, mining, and industrial
-                projects of varying scale and complexity. Our approach combines disciplined
-                 planning, modern equipment, and experienced teams to ensure 
-                 every operation is executed with precision and accountability.
+              Vectura Earthmoving delivers professionally managed services
+              designed to support infrastructure, mining, and industrial
+              projects of varying scale and complexity. Our approach combines
+              disciplined planning, modern equipment, and experienced teams to
+              ensure every operation is executed with precision and accountability.
             </p>
             <p>
               Every operation is planned with clarity and executed
@@ -213,7 +311,7 @@ const Services = () => {
           <div className="slider">
             {slides.map((img, i) => (
               <div key={i} className={`slide ${i === current ? "active" : ""}`}>
-                <img src={img} alt="" />
+                <img src={img} alt={`Service highlight ${i + 1}`} />
               </div>
             ))}
             <button className="arrow left" onClick={prev}>‹</button>
@@ -231,7 +329,7 @@ const Services = () => {
         </div>
       </section>
 
-      {/* CARDS */}
+      {/* ===== SERVICE CARDS ===== */}
       <section>
         <div className="container">
           <h2>Explore Our Capabilities</h2>
@@ -239,7 +337,7 @@ const Services = () => {
           <div className="service-grid">
             {Object.entries(serviceMap).map(([key, val]) => (
               <div className="service-card" key={key}>
-                <img src={val.img} alt="" />
+                <img src={val.img} alt={val.title} />
                 <h3>{val.title}</h3>
                 <p>Professional, safety-driven execution.</p>
                 <button className="btn" onClick={() => setActiveService(key)}>
@@ -249,13 +347,13 @@ const Services = () => {
             ))}
           </div>
 
-          {/* DETAILS */}
+          {/* ===== DETAILS ===== */}
           {activeService && (
             <div className="details" id="service-details">
               <button className="close" onClick={() => setActiveService(null)}>×</button>
 
               <div className="detail-image">
-                <img src={serviceMap[activeService].img} alt="" />
+                <img src={serviceMap[activeService].img} alt={serviceMap[activeService].title} />
               </div>
 
               <div className="detail-content">

@@ -3,157 +3,170 @@ import logo from "../assets/Logo.png";
 
 export default function Footer() {
 
-  // 🔽 FORCE PAGE TO OPEN FROM TOP
   const goTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant", // change to "smooth" if needed
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   };
 
   return (
-    <footer style={styles.footer}>
-      <div style={styles.container}>
+    <>
+      <footer className="footer">
+        <div className="footer-container">
 
-        {/* LEFT : LOGO + NAME + QUOTE */}
-        <div style={styles.column}>
-          <div style={styles.logoBox}>
-            <img
-              src={logo}
-              alt="Vectura Earthmoving Logo"
-              style={styles.logo}
-            />
+          {/* BRAND */}
+          <div className="footer-column brand">
+            <div className="logoBox">
+              <img src={logo} alt="Vectura Earthmoving Logo" />
+            </div>
+            <h3 className="company">Vectura Earthmoving</h3>
+            <p className="quote">
+              “Strong foundations build strong futures.”
+            </p>
           </div>
-          <h3 style={styles.company}>Vectura Earthmoving</h3>
-          <p style={styles.quote}>
-            “Strong foundations build strong futures.”
-          </p>
+
+          {/* LINKS */}
+          <div className="footer-column">
+            <h4 className="heading">Quick Links</h4>
+            <Link to="/" onClick={goTop}>Home</Link>
+            <Link to="/about" onClick={goTop}>About</Link>
+            <Link to="/fleet" onClick={goTop}>Fleet</Link>
+            <Link to="/services" onClick={goTop}>Services</Link>
+            <Link to="/contact" onClick={goTop}>Contact</Link>
+          </div>
+
+          {/* CONTACT */}
+          <div className="footer-column">
+            <h4 className="heading">Contact Info</h4>
+            <p>5451, 168 Street, Warren Park</p>
+            <p>Harare, Zimbabwe</p>
+            <p>Contact: +263-77 286 2607</p>
+          </div>
+
         </div>
 
-        {/* MIDDLE : QUICK LINKS */}
-        <div style={styles.column}>
-          <h4 style={styles.heading}>Quick Links</h4>
-
-          <Link to="/" style={styles.link} onClick={goTop}>Home</Link>
-          <Link to="/about" style={styles.link} onClick={goTop}>About</Link>
-          <Link to="/services" style={styles.link} onClick={goTop}>Services</Link>
-          <Link to="/fleet" style={styles.link} onClick={goTop}>Fleet</Link>
-          <Link to="/contact" style={styles.link} onClick={goTop}>Contact</Link>
+        <div className="footer-bottom">
+          © {new Date().getFullYear()} Vectura Earthmoving | Designed and Managed by{" "}
+          <a
+            href="https://hragroups.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            HRA Groups Private Limited
+          </a>
         </div>
+      </footer>
 
-        {/* RIGHT : CONTACT INFO */}
-        <div style={styles.column}>
-          <h4 style={styles.heading}>Contact Info</h4>
-          <p style={styles.contactText}>5451, 168 Street, Warren Park</p>
-          <p style={styles.contactText}>Harare, Zimbabwe</p>
-          <p style={styles.contactText}>Contact: +263-77 286 2607</p>
-        </div>
+      {/* CLEAN CSS */}
+      <style>{`
+        .footer {
+          background: #1f2937;
+          color: #e5e7eb;
+          padding: 60px 40px 22px;
+        }
 
-      </div>
+        .footer-container {
+          max-width: 1100px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1.5fr 1fr 1.2fr;
+          gap: 60px;
+        }
 
-      {/* BOTTOM BAR */}
-      <div style={styles.bottom}>
-        © {new Date().getFullYear()} Vectura Earthmoving | Managed by{" "}
-        <a
-          href="https://hragroups.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={styles.hra}
-        >
-          HRA Groups Private Limited
-        </a>
-      </div>
-    </footer>
+        .footer-column {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .brand {
+          gap: 12px;
+        }
+
+        .logoBox {
+          background: #ffffff;
+          padding: 10px 14px;
+          border-radius: 6px;
+          width: fit-content;
+        }
+
+        .logoBox img {
+          height: 90px;
+          display: block;
+        }
+
+        .company {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #f9fafb;
+        }
+
+        .quote {
+          font-size: 0.95rem;
+          color: #cbd5e1;
+          font-style: italic;
+          line-height: 1.5;
+          margin: 0;
+        }
+
+        .heading {
+          font-size: 1.05rem;
+          font-weight: 600;
+          margin-bottom: 6px;
+          color: #facc15;
+        }
+
+        .footer-column a {
+          text-decoration: none;
+          color: #e5e7eb;
+          font-size: 0.95rem;
+        }
+
+        .footer-column p {
+          font-size: 0.95rem;
+          color: #d1d5db;
+          line-height: 1.4;
+          margin: 0;
+        }
+
+        .footer-bottom {
+          margin-top: 32px;
+          padding-top: 14px;
+          border-top: 1px solid rgba(255,255,255,0.08);
+          font-size: 0.8rem;
+          text-align: center;
+          color: #9ca3af;
+        }
+
+        .footer-bottom a {
+          color: #facc15;
+          text-decoration: none;
+          font-weight: 500;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+          .footer {
+            padding: 40px 16px 20px;
+          }
+
+          .footer-container {
+            grid-template-columns: 1fr;
+            gap: 28px;
+            text-align: center;
+          }
+
+          .logoBox {
+            margin: 0 auto;
+          }
+
+          .logoBox img {
+            height: 70px;
+          }
+
+          .footer-column {
+            align-items: center;
+          }
+        }
+      `}</style>
+    </>
   );
 }
-
-const gold = "#facc15";
-
-const styles = {
-  footer: {
-    background: "#1f2937",
-    color: "#e5e7eb",
-    padding: "60px 40px 22px",
-  },
-
-  container: {
-    maxWidth: "1100px",
-    margin: "0 auto",
-    display: "grid",
-    gridTemplateColumns: "1.5fr 1fr 1.2fr",
-    gap: "60px",
-    alignItems: "flex-start",
-  },
-
-  column: {
-    display: "flex",
-    flexDirection: "column",
-  },
-
-  logoBox: {
-    background: "#ffffff",
-    padding: "10px 14px",
-    borderRadius: "6px",
-    width: "fit-content",
-    marginBottom: "14px",
-  },
-
-  logo: {
-    height: "95px",
-    width: "auto",
-    display: "block",
-  },
-
-  company: {
-    fontSize: "1.2rem",
-    fontWeight: 600,
-    marginBottom: "6px",
-    color: "#f9fafb",
-  },
-
-  quote: {
-    fontSize: "0.95rem",
-    color: "#cbd5e1",
-    fontStyle: "italic",
-    lineHeight: "1.5",
-    margin: 0,
-  },
-
-  heading: {
-    fontSize: "1.05rem",
-    fontWeight: 600,
-    marginBottom: "10px",
-    color: gold,
-  },
-
-  link: {
-    textDecoration: "none",
-    color: "#e5e7eb",
-    fontSize: "0.95rem",
-    marginBottom: "8px",
-    cursor: "pointer",
-  },
-
-  contactText: {
-    fontSize: "0.95rem",
-    color: "#d1d5db",
-    lineHeight: "1.4",
-    margin: "0 0 4px 0",
-  },
-
-  bottom: {
-    marginTop: "45px",
-    paddingTop: "14px",
-    borderTop: "1px solid rgba(255,255,255,0.08)",
-    fontSize: "0.85rem",
-    textAlign: "center",
-    color: "#9ca3af",
-  },
-
-  hra: {
-    color: gold,
-    textDecoration: "none",
-    fontWeight: 500,
-  },
-};

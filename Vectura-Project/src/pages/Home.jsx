@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 /* ===== HERO SLIDES ===== */
 import slide1 from "../assets/hero1.png";
@@ -32,226 +33,257 @@ const Home = () => {
   return (
     <>
       <style>{`
-        *{
-          margin:0;
-          padding:0;
-          box-sizing:border-box;
-          font-family:Poppins,Segoe UI,sans-serif;
+        /* ===== RESET ===== */
+        *, *::before, *::after {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
         }
 
-        body{
-          background:#f6f5f2;
-          color:#1f2937;
+        body {
+          font-family: Poppins, Segoe UI, sans-serif;
+          background: #f6f5f2;
+          color: #1f2937;
+          overflow-x: hidden;
         }
 
-        section{
-          padding:110px 0;
+        section {
+          padding: clamp(60px, 8vw, 110px) 0;
         }
 
-        .container{
-          max-width:1200px;
-          margin:auto;
-          padding:0 22px;
+        .container {
+          max-width: 1200px;
+          margin: auto;
+          padding: 0 18px;
         }
 
-        h1{font-size:3rem;line-height:1.15;color:#111827;}
-        h2{font-size:2.5rem;color:#111827;margin-bottom:22px;}
-        h3{font-size:1.3rem;color:#111827;margin-bottom:10px;}
-
-        p{
-          font-size:1.05rem;
-          line-height:1.9;
-          color:#4b5563;
-          margin-bottom:16px;
+        h1 {
+          font-size: clamp(2rem, 5vw, 3rem);
+          line-height: 1.15;
+          color: #111827;
         }
 
-        img{
-          width:100%;
-          border-radius:18px;
+        h2 {
+          font-size: clamp(1.8rem, 4vw, 2.5rem);
+          margin-bottom: 22px;
+          color: #111827;
         }
 
-        .gold{color:#c9a227;}
-
-        .btn{
-          display:inline-block;
-          padding:15px 42px;
-          background:linear-gradient(135deg,#f3e3a1,#c9a227);
-          color:#1f2937;
-          border-radius:50px;
-          font-weight:600;
-          margin-top:34px;
-          text-decoration:none;
-          transition:.3s ease;
+        h3 {
+          font-size: 1.3rem;
+          margin-bottom: 10px;
         }
 
-        .btn:hover{
-          transform:translateY(-3px);
-          box-shadow:0 15px 40px rgba(201,162,39,.45);
+        p {
+          font-size: 1.05rem;
+          line-height: 1.9;
+          color: #4b5563;
+          margin-bottom: 16px;
+          text-align: left;
         }
 
-        /* ================= HERO ================= */
-        .hero{
-          background:linear-gradient(135deg,#ffffff,#f1efe9);
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 18px;
+          display: block;
         }
 
-        .hero-grid{
-          display:grid;
-          grid-template-columns:1.15fr 1fr;
-          gap:80px;
-          align-items:center;
+        .gold { color: #c9a227; }
+
+        .btn {
+          display: inline-block;
+          padding: 15px 42px;
+          background: linear-gradient(135deg,#f3e3a1,#c9a227);
+          color: #1f2937;
+          border-radius: 50px;
+          font-weight: 600;
+          margin-top: 34px;
+          text-decoration: none;
         }
 
-        .slider{
-          position:relative;
-          height:380px;
-          overflow:hidden;
+        /* ===== HERO ===== */
+        .hero {
+          background: linear-gradient(135deg,#ffffff,#f1efe9);
         }
 
-        .slide{
-          position:absolute;
-          inset:0;
-          opacity:0;
-          transition:opacity .8s ease;
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 1fr;
+          gap: clamp(40px, 6vw, 80px);
+          align-items: center;
         }
 
-        .slide.active{opacity:1;}
-
-        .slide img{
-          height:100%;
-          object-fit:cover;
+        .slider {
+          position: relative;
+          height: clamp(240px, 35vw, 380px);
+          overflow: hidden;
         }
 
-        .arrow{
-          position:absolute;
-          top:50%;
-          transform:translateY(-50%);
-          width:42px;
-          height:42px;
-          border-radius:50%;
-          background:#fff;
-          border:none;
-          font-size:22px;
-          cursor:pointer;
-          box-shadow:0 10px 25px rgba(0,0,0,.15);
+        .slide {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transition: opacity .8s ease;
         }
 
-        .arrow.left{left:14px;}
-        .arrow.right{right:14px;}
+        .slide.active { opacity: 1; }
 
-        .dots{
-          position:absolute;
-          bottom:14px;
-          left:50%;
-          transform:translateX(-50%);
-          display:flex;
-          gap:10px;
+        .slide img {
+          height: 100%;
+          object-fit: cover;
         }
 
-        .dot{
-          width:11px;
-          height:11px;
-          border-radius:50%;
-          background:#d1d5db;
-          cursor:pointer;
+        .arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          background: #fff;
+          border: none;
+          font-size: 22px;
+          cursor: pointer;
         }
 
-        .dot.active{background:#c9a227;}
+        .arrow.left { left: 14px; }
+        .arrow.right { right: 14px; }
 
-        /* ================= ABOUT ================= */
-        .about{background:#ffffff;}
-
-        .about-grid{
-          display:grid;
-          grid-template-columns:1fr 1fr;
-          gap:80px;
-          align-items:center;
+        .dots {
+          position: absolute;
+          bottom: 14px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 10px;
         }
 
-        /* ================= SERVICES ================= */
-        .services{background:#f7f6f2;}
-
-        .service-grid{
-          display:grid;
-          grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-          gap:40px;
-          margin-top:70px;
+        .dot {
+          width: 11px;
+          height: 11px;
+          border-radius: 50%;
+          background: #d1d5db;
         }
 
-        .service-card{
-          background:#ffffff;
-          padding:36px;
-          border-radius:22px;
-          box-shadow:0 25px 70px rgba(0,0,0,.08);
-          border-top:4px solid #c9a227;
+        .dot.active { background: #c9a227; }
+
+        /* ===== ABOUT ===== */
+        .about { background: #ffffff; }
+
+        .about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(40px, 6vw, 80px);
+          align-items: center;
         }
 
-        /* ================= PREMIUM ================= */
-        .premium{
-          background:linear-gradient(135deg,#fdfcf9,#f1efe9);
+        /* ===== SERVICES ===== */
+        .services { background: #f7f6f2; }
+
+        .service-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 40px;
+          margin-top: 70px;
         }
 
-        .premium-grid{
-          display:grid;
-          grid-template-columns:1.2fr 1fr;
-          gap:90px;
+        .service-card {
+          background: #ffffff;
+          padding: 36px;
+          border-radius: 22px;
+          box-shadow: 0 25px 70px rgba(0,0,0,.08);
+          border-top: 4px solid #c9a227;
+          text-align: left;
         }
 
-        .stats{
-          display:grid;
-          grid-template-columns:repeat(2,1fr);
-          gap:28px;
-          margin-top:42px;
+        /* ===== PREMIUM ===== */
+        .premium {
+          background: linear-gradient(135deg,#fdfcf9,#f1efe9);
         }
 
-        .stat{
-          background:#ffffff;
-          padding:34px;
-          border-radius:22px;
-          box-shadow:0 25px 70px rgba(0,0,0,.08);
-          text-align:center;
+        .premium-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr;
+          gap: clamp(40px, 7vw, 90px);
         }
 
-        .stat h3{
-          font-size:2.2rem;
-          color:#c9a227;
+        .stats {
+          display: grid;
+          grid-template-columns: repeat(2,1fr);
+          gap: 28px;
+          margin-top: 42px;
         }
 
-        .exec-card{
-          background:#ffffff;
-          padding:30px 34px;
-          border-left:5px solid #c9a227;
-          border-radius:18px;
-          margin-bottom:24px;
-          box-shadow:0 25px 70px rgba(0,0,0,.08);
+        .stat {
+          background: #ffffff;
+          padding: 34px;
+          border-radius: 22px;
+          box-shadow: 0 25px 70px rgba(0,0,0,.08);
+          text-align: center;
         }
 
-        /* ================= INDUSTRIES ================= */
-        .industries{background:#ffffff;}
-
-        .industry-grid{
-          display:grid;
-          grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-          gap:28px;
-          margin-top:42px;
+        .stat h3 {
+          font-size: 2.2rem;
+          color: #c9a227;
         }
 
-        .industry-box{
-          background:#f9f8f5;
-          padding:32px;
-          border-radius:22px;
-          box-shadow:0 20px 60px rgba(0,0,0,.08);
-          text-align:center;
-          font-weight:600;
+        .exec-card {
+          background: #ffffff;
+          padding: 30px 34px;
+          border-left: 5px solid #c9a227;
+          border-radius: 18px;
+          margin-bottom: 24px;
+          box-shadow: 0 25px 70px rgba(0,0,0,.08);
+          text-align: left;
         }
 
-        @media(max-width:900px){
+        /* ===== INDUSTRIES ===== */
+        .industries { background: #ffffff; }
+
+        .industry-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 28px;
+          margin-top: 42px;
+        }
+
+        .industry-box {
+          background: #f9f8f5;
+          padding: 32px;
+          border-radius: 22px;
+          box-shadow: 0 20px 60px rgba(0,0,0,.08);
+          text-align: center;
+          font-weight: 600;
+        }
+
+        /* ===== MOBILE FIX ===== */
+        @media (max-width: 900px) {
+
           .hero-grid,
           .about-grid,
-          .premium-grid{
-            grid-template-columns:1fr;
+          .premium-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
           }
-          h1{font-size:2.3rem;}
-          .slider{height:260px;}
+
+          h1, h2 {
+            text-align: center;
+          }
+
+          p {
+            text-align: left;
+          }
+
+          .btn {
+            display: block;
+            margin: 28px auto 0;
+            text-align: center;
+          }
+
+          .stats {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
 
@@ -276,19 +308,20 @@ const Home = () => {
               ensuring predictable project outcomes.
             </p>
 
-            <a href="/contact" className="btn">Request a Quote</a>
+            {/* ✅ FIXED BUTTON */}
+            <Link to="/contact" className="btn">
+              Request a Quote
+            </Link>
           </div>
 
           <div className="slider">
             {slides.map((img, i) => (
               <div key={i} className={`slide ${i === current ? "active" : ""}`}>
-                <img src={img} alt={`Slide ${i + 1}`} />
+                <img src={img} alt={`Vectura project ${i + 1}`} />
               </div>
             ))}
-
             <button className="arrow left" onClick={prev}>‹</button>
             <button className="arrow right" onClick={next}>›</button>
-
             <div className="dots">
               {slides.map((_, i) => (
                 <div
@@ -330,7 +363,6 @@ const Home = () => {
       <section className="services">
         <div className="container">
           <h2>Our Services</h2>
-
           <div className="service-grid">
             <div className="service-card">
               <img src={plantHiringImg} alt="Plant Hiring" />
@@ -376,7 +408,7 @@ const Home = () => {
               <div className="stat"><h3>10+</h3>Years Experience</div>
               <div className="stat"><h3>100%</h3>Safety Focus</div>
               <div className="stat"><h3>24×7</h3>Fleet Ready</div>
-              <div className="stat"><h3>Pan-India</h3>Capability</div>
+              <div className="stat"><h3>Across Zimbabwe</h3>Capability</div>
             </div>
           </div>
 
@@ -393,7 +425,6 @@ const Home = () => {
       <section className="industries">
         <div className="container">
           <h2>Industries We Serve</h2>
-
           <div className="industry-grid">
             <div className="industry-box">Infrastructure & Roads</div>
             <div className="industry-box">Mining & Quarrying</div>
